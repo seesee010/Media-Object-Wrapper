@@ -19,10 +19,13 @@ int main(int argc, char *argv[]) {
         char cmdAdd[256];
         char cmdCompress[256];
         char cmdDeCompress[256];
+        char cmdInit[256];
+        char cmdReset[256];
 
         snprintf(cmdAdd,        sizeof(cmdAdd),        "mow.addFile('/%s')",      argv[2]);
         snprintf(cmdCompress,   sizeof(cmdCompress),   "mow.combineFiles('%s')",  argv[2]);
         snprintf(cmdDeCompress, sizeof(cmdDeCompress), "mow.separateFiles(%s)",   argv[2]);
+        snprintf(cmdInit, sizeof(cmdInit), 
 
         int opt = 0;
         
@@ -44,6 +47,18 @@ int main(int argc, char *argv[]) {
                         fputs(cmdDeCompress, file);
                         fprintf(stdout, "Decompress: File, $: %s", argv[2]);
                         break;
+
+                case 4:
+                        fputs("# Media Object Wrapper\n# .mow\nmow = MOW()", file);
+                        fprintf(stdout, "Init $$");
+                        break;
+
+                case 5:
+                        fputs(cmdReset, file);
+                        fprintf(stdout, "Reset the whole project $: main.py");
+                        // not working! // todo: fix
+                        break;
+
                 default:
                         fprintf(stderr, "[ERROR]: Invalid Cmd, you may want to read the docs! $: %s", argv[2]);
                         break;
